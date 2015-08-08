@@ -58,6 +58,15 @@ BOOL LoadApi(BOOL bEnable)
 			if (Pad->Open()) l_Pad[l_nPads++] = Pad;
 			else delete Pad;
 		}
+
+		// Load DS2s from Deal Extreme
+		for (DWORD Index = 0; Index < XUSER_MAX_COUNT * DealExtremeDS2Controller::CollectionSize && l_nPads < XUSER_MAX_COUNT; Index++)
+		{
+			Pad = new DealExtremeDS2Controller(Index);
+
+			if (Pad->Open()) l_Pad[l_nPads++] = Pad;
+			else delete Pad;
+		}
 		
 		// Load X360s
 		if (l_nBtPads == 0) // Only if not using BTH Server

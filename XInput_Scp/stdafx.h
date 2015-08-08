@@ -38,6 +38,7 @@ extern "C" {
 #include "SCPController.h"
 #include "BTConnection.h"
 #include "DS2Controller.h"
+#include "DealExtremeDS2Controller.h"
 #include "DS3Controller.h"
 #include "SL3Controller.h"
 #include "X360Controller.h"
