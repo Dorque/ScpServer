@@ -10,6 +10,14 @@ DealExtremeDS2Controller::~DealExtremeDS2Controller()
 {
 }
 
+//void DealExtremeDS2Controller::FormatReport(void)
+//{
+//	m_Report[0] = (BYTE)m_lpHidDevice->OutputData[0].ReportID;
+//
+//	m_Report[1] = (BYTE)(m_padVibration.wRightMotorSpeed >  0 ? 0x01 : 0); // Only has [ON|OFF]
+//	m_Report[2] = (BYTE)(m_padVibration.wLeftMotorSpeed >> 8);
+//}
+
 void DealExtremeDS2Controller::XInputMapState(void)
 {
 	m_padState.Gamepad.wButtons = 0;
@@ -41,12 +49,6 @@ void DealExtremeDS2Controller::XInputMapState(void)
 
 				case 11: m_padState.Gamepad.wButtons |= XINPUT_GAMEPAD_LEFT_THUMB; break;
 				case 12: m_padState.Gamepad.wButtons |= XINPUT_GAMEPAD_RIGHT_THUMB; break;
-
-					//case 13: m_padState.Gamepad.wButtons |= XINPUT_GAMEPAD_DPAD_UP; break;
-					//case 14: m_padState.Gamepad.wButtons |= XINPUT_GAMEPAD_DPAD_RIGHT; break;
-					//case 15: m_padState.Gamepad.wButtons |= XINPUT_GAMEPAD_DPAD_DOWN; break;
-					//case 16: m_padState.Gamepad.wButtons |= XINPUT_GAMEPAD_DPAD_LEFT; break;
-					//case 18: m_padState.Gamepad.wButtons |= XINPUT_GAMEPAD_DPAD_LEFT; break;
 				}
 			}
 		}

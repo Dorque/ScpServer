@@ -44,5 +44,5 @@ extern "C" {
 #include "X360Controller.h"
 
 #define ELPP_AS_DLL
-#define ELPP_THREAD_SAFE
+//#define ELPP_THREAD_SAFE //this line causes problems for Windows 7
 #include "../Common/Include/easylogging++.h"
