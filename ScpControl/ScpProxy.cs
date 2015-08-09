@@ -61,14 +61,14 @@ namespace ScpControl
             _rootHub.PromotePad(pad);
         }
 
-        public IEnumerable<byte> ReadConfig()
+        public GlobalConfiguration ReadConfig()
         {
-            return _rootHub.GetConfig();
+            return _rootHub.RequestConfiguration();
         }
 
-        public void WriteConfig(byte[] config)
+        public void WriteConfig(GlobalConfiguration config)
         {
-            _rootHub.SetConfig(config);
+            _rootHub.SubmitConfiguration(config);
         }
 
         #region Component actions
@@ -193,6 +193,13 @@ namespace ScpControl
             return _rootHub.GetPadDetail(pad);
         }
 
+        /// <summary>
+        ///     Submit a rumble request for a specified pad.
+        /// </summary>
+        /// <param name="pad">The target pad.</param>
+        /// <param name="large">Rumble with the large (typically left) motor.</param>
+        /// <param name="small">Rumble with the small (typically right) motor.</param>
+        /// <returns>Returns request status.</returns>
         public bool Rumble(DsPadId pad, byte large, byte small)
         {
             return _rootHub.Rumble(pad, large, small);
@@ -273,6 +280,34 @@ namespace ScpControl
             : this()
         {
             container.Add(this);
+        }
+
+        #endregion
+
+        #region Public events
+
+        public event EventHandler<DsPacket> NativeFeedReceived;
+
+        public event EventHandler<EventArgs> RootHubDisconnected;
+
+        #endregion
+
+        #region Event methods
+
+        private void OnFeedPacketReceived(DsPacket data)
+        {
+            if (NativeFeedReceived != null)
+            {
+                NativeFeedReceived(this, data);
+            }
+        }
+
+        private void OnRootHubDisconnected(object sender, EventArgs args)
+        {
+            if (RootHubDisconnected != null)
+            {
+                RootHubDisconnected(sender, args);
+            }
         }
 
         #endregion

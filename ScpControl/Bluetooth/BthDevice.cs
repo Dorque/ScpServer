@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using ScpControl.ScpCore;
 
-namespace ScpControl
+namespace ScpControl.Bluetooth
 {
     public partial class BthDevice : BthConnection, IDsDevice
     {
@@ -203,9 +203,9 @@ namespace ScpControl
             {
                 var now = DateTime.Now;
 
-                if (m_IsIdle && Global.IdleDisconnect)
+                if (m_IsIdle && GlobalConfiguration.Instance.IdleDisconnect)
                 {
-                    if ((now - m_Idle).TotalMilliseconds >= Global.IdleTimeout)
+                    if ((now - m_Idle).TotalMilliseconds >= GlobalConfiguration.Instance.IdleTimeout)
                     {
                         Log.Debug("++ Idle Disconnect Triggered");
 
