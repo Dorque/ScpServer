@@ -1,0 +1,52 @@
+﻿<Window x:Class="ScpLauncher.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="ScpToolkit - Launcher" Height="350" Width="525" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Icon="Scp.ico">
+    <Grid Background="#FF333333">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Driver installer -->
+        <Button Grid.Row="0" Grid.Column="0"
+                Padding="10" Margin="20" Click="DriverInstallerButton_Click">
+            <Button.Content>
+                <StackPanel>
+                    <Image Source="Icons/window-tools.ico"
+                           Height="64" Width="64"/>
+                    <Label Content="Launch driver installer" Margin="0,5,0,0"/>
+                </StackPanel>
+            </Button.Content>
+        </Button>
+
+        <!-- Server monitor -->
+        <Button Grid.Row="0" Grid.Column="1"
+                Padding="10" Margin="20" Click="ServerMonitorButton_Click">
+            <Button.Content>
+                <StackPanel>
+                    <Image Source="Icons/gamepad-gear.ico"
+                           Height="64" Width="64"/>
+                    <Label Content="Launch server monitor" Margin="0,5,0,0"/>
+                </StackPanel>
+            </Button.Content>
+        </Button>
+
+        <!-- Launch server -->
+        <Button Grid.Row="1" Grid.Column="0"
+                Padding="10" Margin="20" Click="StartServerButton_Click">
+            <Button.Content>
+                <StackPanel>
+                    <Image Source="Icons/network-server.ico"
+                           Height="64" Width="64"/>
+                    <Label Content="Launch standalone server" Margin="0,5,0,0"/>
+                </StackPanel>
+            </Button.Content>
+        </Button>
+    </Grid>
+</Window>

@@ -249,13 +249,22 @@ namespace ScpControl.Bluetooth
 
                                                     L2_DCID = new byte[2] { (byte)((DCID >> 0) & 0xFF), (byte)((DCID >> 8) & 0xFF) };
 
-                                                    L2CAP_Connection_Request(connection.HciHandle.Bytes, _hidReportId++,
-                                                        L2_DCID,
-                                                        L2CAP.PSM.HID_Service);
-                                                    Log.DebugFormat("<< {0} [{1:X2}] PSM [{2:X2}]",
-                                                        L2CAP.Code.L2CAP_Connection_Request,
-                                                        (byte)L2CAP.Code.L2CAP_Connection_Request,
-                                                        (byte)L2CAP.PSM.HID_Service);
+                                                    if (!connection.IsFake)
+                                                    {
+                                                        L2CAP_Connection_Request(connection.HciHandle.Bytes,
+                                                            _hidReportId++,
+                                                            L2_DCID,
+                                                            L2CAP.PSM.HID_Service);
+                                                        Log.DebugFormat("<< {0} [{1:X2}] PSM [{2:X2}]",
+                                                            L2CAP.Code.L2CAP_Connection_Request,
+                                                            (byte) L2CAP.Code.L2CAP_Connection_Request,
+                                                            (byte) L2CAP.PSM.HID_Service);
+                                                    }
+                                                    else
+                                                    {
+                                                        connection.CanStartSvc = false;
+                                                        OnInitialised(connection);
+                                                    }
                                                 }
                                             }
                                             break;
@@ -569,6 +578,18 @@ namespace ScpControl.Bluetooth
                                         break;
 
                                     Connection = Add(Buffer[3], (byte)(Buffer[4] | 0x20), nameList[bd]);
+
+                                    // TODO: fix workaround, breaks my controller
+                                    /* if (Buffer[10] != 0x00 || Buffer[9] != 0x07 || Buffer[8] != 0x04)
+                                    {
+                                        Connection.IsFake = true;
+                                        Log.Info("-- Fake DualShock3 found, workaround applied");
+                                    }
+                                    else
+                                    {
+                                        Connection.IsFake = false;
+                                        Log.Info("-- Genuine Sony DualShock3 found");
+                                    } */
 
                                     // fetch configuration from .INI
                                     var bdc = IniConfig.Instance.BthDongle;
